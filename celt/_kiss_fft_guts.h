@@ -151,6 +151,15 @@
     }while(0)
 #endif /* C_ADD defined */
 
+//+DOGOT
+// Emscripten doesn't have intrinsics.
+#ifdef EMSCRIPTEN
+#ifdef USE_SIMD
+#undef USE_SIMD
+#endif
+#endif
+//-DOGOT
+
 #ifdef FIXED_POINT
 /*#  define KISS_FFT_COS(phase)  TRIG_UPSCALE*floor(MIN(32767,MAX(-32767,.5+32768 * cos (phase))))
 #  define KISS_FFT_SIN(phase)  TRIG_UPSCALE*floor(MIN(32767,MAX(-32767,.5+32768 * sin (phase))))*/

@@ -62,7 +62,13 @@
 */
 
 /* With GCC, when SSE is available, the fastest conversion is cvtss2si. */
-#if defined(__GNUC__) && defined(__SSE__)
+//+DOGOT
+// Emscripten doesn't have intrinsics.
+#if defined(EMSCRIPTEN)
+        #include <math.h>
+        #define float2int(flt) ((int)(floor(.5+flt)))
+#elif defined(__GNUC__) && defined(__SSE__)
+//-DOGOT
 
 #include <xmmintrin.h>
 static OPUS_INLINE opus_int32 float2int(float x) {return _mm_cvt_ss2si(_mm_set_ss(x));}
